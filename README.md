@@ -1,7 +1,7 @@
 # NasaSpaceAppsChallenge2024
 
 ## メンバー
-* ASAHI
-* RITSUKI
+* ASAHI | @AsaApp0424
+* RITSUKI  @maguronoosushi0807
 * YUTA
 * YUJI
