@@ -1,7 +1,7 @@
 # NasaSpaceAppsChallenge2024
 
 ## メンバー
-* ASAHI | @AsaApp0424
+* ASAHI  @AsaApp0424
 * RITSUKI  @maguronoosushi0807
-* YUTA
-* YUJI
+* YUTA  @Overmeat-fusion
+* YUJI  @nearfactory
