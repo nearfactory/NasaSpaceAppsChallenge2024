@@ -1,0 +1,232 @@
+@charset "utf-8";
+
+:root{
+  --headerHeight: 7rem;
+}
+
+/* ======================================== */
+
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+  display: block;
+  width: 100%;
+  height: var(--headerHeight);
+
+  margin: 0;
+  padding: 0;
+
+  background-color: var(--background1);
+}
+
+header>nav{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  width: 40%;
+  height: 100%;
+
+  margin: 0 auto;
+  padding: 0;
+}
+
+nav>a.navLink{
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  color: var(--text1);
+  font-size: 1.75rem;
+  font-weight: 400;
+
+  line-height: var(--headerHeight);
+  text-align: center;
+  text-decoration: none;
+}
+
+/* ======================================== */
+
+span#topSpan{
+  display: block;
+  width: 100%;
+  height: var(--headerHeight);
+
+  visibility: hidden;
+}
+
+/* ======================================== */
+
+div#homeImage1{
+  position: relative;
+
+  display: block;
+  width: 100%;
+  height: calc(100vh - var(--headerHeight));
+
+  margin: 0;
+  padding: 0;
+
+  aspect-ratio: 1;
+  
+  background:
+    linear-gradient(
+      to bottom,
+      #00000000 60%,
+      #000000ff 95%
+    ),
+    url("../image/homeTop.jpg") no-repeat center / cover;
+}
+
+/* ======================================== */
+
+a#homeArrowDown{
+  position: absolute;
+  bottom: 10rem;
+  left: calc((100% - 10rem) / 2);
+
+  display: block;
+  width: 10rem;
+  height: 5rem;
+
+  margin: 0;
+  padding: 0; 
+
+  background-color: unset;
+  border: none;
+  border-radius: 0;
+}
+
+a#homeArrowDown>span{
+  position: absolute;
+  bottom: 0;
+  right: 5rem;
+
+  display: block;
+  width: calc(sqrt(2) * 5rem);
+  height: calc(sqrt(2) * 5rem);
+
+  background-color: #ffffff00;
+  border-bottom: #ffffff solid 2px;
+  border-right: #ffffff solid 2px;
+
+  transform-origin: right bottom;
+  transform: rotateZ(45deg) scale(1);
+
+  transition: all .25s;
+}
+
+a#homeArrowDown:active>span{
+  transform: rotateZ(45deg) scale(0.9);
+}
+
+/* ======================================== */
+
+.startBox{
+  display: grid;
+  grid-template:
+    "span1 img" 1fr
+    "num img" 2rem
+    "name img" 10rem
+    "desc img" 8rem
+    "btn img" 8rem
+    "span2 img" 1fr /
+    1fr 1fr;
+  width: 100%;
+  height: auto;
+  
+  /* 値は横÷縦の値 = 比率 */
+  aspect-ratio: 3;
+  
+  background-color: var(--background1);
+  /* background: url("../image/test1.jpg") no-repeat center / cover; */
+}
+
+.startBox>p{
+  display: block;
+  width: calc(100% - 14rem);
+
+  margin: auto 2rem auto 12rem;
+  padding: 0;
+
+  color: var(--text1);
+  letter-spacing: 1px;
+
+  text-align: justify;
+  text-decoration: none;
+}
+
+.startNum{
+  grid-area: num;
+
+  font-size: 1.75rem;
+  font-weight: 300;
+
+  line-height: 2rem;
+}
+
+.startName{
+  grid-area: name;
+
+  font-size: 5rem;
+  font-weight: 500;
+  
+  line-height: 8rem;
+}
+
+.startDesc{
+  grid-area: desc;
+  
+  display: -webkit-box;
+
+  font-size: 2rem;
+  font-weight: 500;
+  
+  line-height: calc(8rem / 3);
+}
+
+.startBtn{
+  grid-area: btn;
+  
+  display: block;
+  width: 16rem;
+  height: 4rem;
+
+  margin: 2rem 2rem 2rem auto;
+  padding: 0 2rem;
+
+  background-color: var(--accent1);
+  border: none;
+  border-radius: 1.5rem;
+
+  color: var(--text1);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+
+  line-height: 4rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.startBtn:active{
+  background-color: #18282e;
+}
+
+.startImage{
+  grid-area: img;
+
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+/* ======================================== */
+
+footer{
+
+}
