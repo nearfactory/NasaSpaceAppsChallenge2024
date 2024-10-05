@@ -209,8 +209,7 @@ a#homeArrowDown:active>span{
   /* 値は横÷縦の値 = 比率 */
   aspect-ratio: 2.75;
   
-  background-color: var(--background1);
-  /* background: url("../image/test1.jpg") no-repeat center / cover; */
+  background: url("../image/spica.webp") no-repeat center / cover;
 }
 
 .startBox2{
