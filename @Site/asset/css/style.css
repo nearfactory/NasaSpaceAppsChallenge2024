@@ -207,9 +207,19 @@ a#homeArrowDown:active>span{
   height: auto;
   
   /* 値は横÷縦の値 = 比率 */
-  aspect-ratio: 2.75;
-  
-  background: url("../image/spica.webp") no-repeat center / cover;
+  aspect-ratio: 1.77;
+}
+
+.startBox:nth-last-of-type(3){
+  background: url("../image/Sirius.webp") no-repeat center / cover;
+}
+
+.startBox:nth-last-of-type(2){
+  background: url("../image/Arcturus.webp") no-repeat center / cover;
+}
+
+.startBox:nth-last-of-type(1){
+  background: url("../image/Spica.webp") no-repeat center / cover;
 }
 
 .startBox2{
