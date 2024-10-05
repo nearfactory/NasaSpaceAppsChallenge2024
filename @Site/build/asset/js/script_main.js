@@ -188,13 +188,8 @@ function universeInit(){
     var azimuthalDeg = THREE.Math.radToDeg(azimuthalAngle);
     var polarDeg = THREE.Math.radToDeg(polarAngle);
 
-    console
-    if(Math.abs(camera.rotation.x) < 180){
-      $("#angleMeterHorizontal>div").css("transform", "translateX(" + String(camera.rotation.y/Math.PI*180) + "rem)")
-    }
-    else{
-      $("#angleMeterHorizontal>div").css("transform", "translateX(" + String(camera.rotation.y/Math.PI*180*-1+180) + "rem)")
-    }
+    $("#angleMeterHorizontal>div").css("transform", "translateX(" + String(azimuthalDeg + 22.5) + "rem)")
+    $("#angleMeterVertical>div").css("transform", "translateX(" + String(polarDeg + 22.5) + "rem)")
   }
 
   tick();
