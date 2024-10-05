@@ -189,7 +189,7 @@ function universeInit(){
     var polarDeg = THREE.Math.radToDeg(polarAngle);
 
     $("#angleMeterHorizontal>div").css("transform", "translateX(" + String(azimuthalDeg + 22.5) + "rem)")
-    $("#angleMeterVertical>div").css("transform", "translateX(" + String(polarDeg + 22.5) + "rem)")
+    $("#angleMeterVertical>div").css("transform", "translateY(" + String(polarDeg + 127.5) + "rem)")
   }
 
   tick();
