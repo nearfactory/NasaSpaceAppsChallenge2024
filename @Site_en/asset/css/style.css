@@ -1,0 +1,352 @@
+@charset "utf-8";
+
+:root{
+  --headerHeight: 9rem;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+/* ======================================== */
+
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+  display: block;
+  width: 100%;
+  height: var(--headerHeight);
+
+  margin: 0;
+  padding: 0;
+
+  background-color: var(--background2);
+}
+
+header>nav{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  width: 50%;
+  height: calc(var(--headerHeight) - 5rem);
+
+  margin: 2.5rem auto;
+  padding: 0;
+}
+
+nav>a.navLink{
+  display: block;
+  width: calc(100% - 1px);
+  height: 100%;
+
+  border-left: var(--text3) solid 0.5px;
+  border-right: var(--text3) solid 0.5px;
+  
+  color: var(--text1);
+  font-size: 1.75rem;
+  font-weight: 400;
+
+  line-height: calc(var(--headerHeight) - 5rem);
+  text-align: center;
+  text-decoration: none;
+}
+
+nav>a.navLink:nth-of-type(1){
+  border-left: none;
+}
+
+nav>a.navLink:nth-of-type(4){
+  border-right: none;
+}
+
+/* ======================================== */
+
+span#topSpan{
+  display: block;
+  width: 100%;
+  height: var(--headerHeight);
+
+  visibility: hidden;
+}
+
+/* ======================================== */
+
+div#homeImage1{
+  position: relative;
+
+  display: block;
+  width: 100%;
+  height: calc(100vh - var(--headerHeight));
+
+  margin: 0;
+  padding: 0;
+
+  aspect-ratio: 1;
+  
+  background:
+    linear-gradient(
+      to bottom,
+      #00000000 60%,
+      #000000ff 95%
+    ),
+    url("../image/homeTop3.jpg") no-repeat center / cover;
+}
+
+/* ======================================== */
+
+p#title{
+  position: absolute;
+  top: calc(50dvh - 5rem - var(--headerHeight));
+  left: 0;
+
+  display: block;
+  width: 100%;
+  height: 10rem;
+
+  margin: 0;
+  padding: 0;
+  
+  color: var(--text1);
+  font-size: 10rem;
+  font-weight: 400;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 2.5px;
+
+  line-height: 10rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+p#desc{
+  position: absolute;
+  top: calc(50dvh - 5rem - var(--headerHeight) + 10rem + 5rem);
+  left: calc((100% - 100rem) / 2);
+
+  display: block;
+  width: 100rem;
+  height: auto;
+
+  margin: 0;
+  padding: 0;
+  
+  color: var(--text1);
+  font-size: 2.5rem;
+  font-weight: 400;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 2px;
+
+  line-height: 3.5rem;
+  text-align: center;
+  text-decoration: none;
+
+  word-break: break-all;
+}
+
+/* ======================================== */
+
+a#homeArrowDown{
+  position: absolute;
+  bottom: 12.5rem;
+  left: calc((100% - 7rem) / 2);
+
+  display: block;
+  width: 7rem;
+  height: 3.5rem;
+
+  margin: 0;
+  padding: 0; 
+
+  background-color: unset;
+  border: none;
+  border-radius: 0;
+}
+
+a#homeArrowDown>span{
+  position: absolute;
+  bottom: 0;
+  right: 3.5rem;
+
+  display: block;
+  width: calc(sqrt(2) * 3.5rem);
+  height: calc(sqrt(2) * 3.5rem);
+
+  background-color: #ffffff00;
+  border-bottom: #ffffff solid 2px;
+  border-right: #ffffff solid 2px;
+
+  transform-origin: right bottom;
+  transform: rotateZ(45deg) scale(1);
+
+  transition: all .25s;
+}
+
+a#homeArrowDown:hover>span{
+  transform: rotateZ(45deg) scale(0.975);
+}
+
+a#homeArrowDown:active>span{
+  transform: rotateZ(45deg) scale(0.875);
+}
+
+/* ======================================== */
+
+.startBox{
+  display: grid;
+  grid-template:
+    "span1 img" 1fr
+    "num img" 2rem
+    "name img" 10rem
+    "desc img" 8rem
+    "btn img" 8rem
+    "span2 img" 1fr /
+    1fr 1fr;
+  width: 100%;
+  height: auto;
+  
+  /* 値は横÷縦の値 = 比率 */
+  aspect-ratio: 1.77;
+}
+
+.startBox:nth-last-of-type(3){
+  background: url("../image/Sirius.webp") no-repeat center / cover;
+}
+
+.startBox:nth-last-of-type(2){
+  background: url("../image/Arcturus.webp") no-repeat center / cover;
+}
+
+.startBox:nth-last-of-type(1){
+  background: url("../image/Spica.webp") no-repeat center / cover;
+}
+
+.startBox2{
+  display: grid;
+  grid-template:
+    "img span1" 1fr
+    "img num" 2rem
+    "img name" 10rem
+    "img desc" 8rem
+    "img btn" 8rem
+    "img span2" 1fr /
+    1fr 1fr;
+  width: 100%;
+  height: auto;
+  
+  /* 値は横÷縦の値 = 比率 */
+  aspect-ratio: 2.75;
+  
+  background-color: var(--background1);
+  /* background: url("../image/test1.jpg") no-repeat center / cover; */
+}
+
+.startNum, .startName, .startDesc{
+  display: block;
+  width: calc(100% - 18rem);
+
+  margin: auto 6rem auto 12rem;
+  padding: 0;
+
+  color: var(--text1);
+  letter-spacing: 1px;
+
+  text-align: justify;
+  text-decoration: none;
+}
+
+.startNum{
+  grid-area: num;
+
+  font-size: 1.75rem;
+  font-weight: 300;
+
+  line-height: 2rem;
+}
+
+.startName{
+  grid-area: name;
+
+  font-size: 5rem;
+  font-weight: 500;
+  
+  line-height: 8rem;
+}
+
+.startDesc{
+  grid-area: desc;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  font-size: 2rem;
+  font-weight: 400;
+  
+  line-height: calc(8rem / 3);
+}
+
+.startBtn{
+  grid-area: btn;
+  
+  display: block;
+  width: 16rem;
+  height: 4rem;
+
+  margin: 2rem 6rem 2rem auto;
+  padding: 0 2rem;
+
+  background-color: var(--accent1);
+  border: none;
+  border-radius: 1.5rem;
+
+  color: var(--text1);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+
+  line-height: 4rem;
+  text-align: center;
+  text-decoration: none;
+
+  transition: all .15s;
+}
+
+.startBtn:hover, .startBtn:active{
+  transform: scale(0.99);
+  background-color: #18282e;
+}
+
+.startImage{
+  grid-area: img;
+
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+/* ======================================== */
+
+footer{
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  background-color: var(--background2);
+
+  color: var(--text1);
+  font-size: 1.75rem;
+  font-weight: 300;
+  letter-spacing: 1.5px;
+
+  line-height: 9rem;
+  text-align: center;
+  text-decoration: none;
+}

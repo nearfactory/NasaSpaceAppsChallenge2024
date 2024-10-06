@@ -1,0 +1,142 @@
+@charset "utf-8";
+
+:root{
+  --headerHeight: 9rem;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+/* ======================================== */
+
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+  display: block;
+  width: 100%;
+  height: var(--headerHeight);
+
+  margin: 0;
+  padding: 0;
+
+  background-color: var(--background2);
+}
+
+header>nav{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  width: 50%;
+  height: calc(var(--headerHeight) - 5rem);
+
+  margin: 2.5rem auto;
+  padding: 0;
+}
+
+nav>a.navLink{
+  display: block;
+  width: calc(100% - 1px);
+  height: 100%;
+
+  border-left: var(--text3) solid 0.5px;
+  border-right: var(--text3) solid 0.5px;
+  
+  color: var(--text1);
+  font-size: 1.75rem;
+  font-weight: 400;
+
+  line-height: calc(var(--headerHeight) - 5rem);
+  text-align: center;
+  text-decoration: none;
+}
+
+nav>a.navLink:nth-of-type(1){
+  border-left: none;
+}
+
+nav>a.navLink:nth-of-type(4){
+  border-right: none;
+}
+
+/* ======================================== */
+
+span#topSpan{
+  display: block;
+  width: 100%;
+  height: var(--headerHeight);
+
+  visibility: hidden;
+}
+
+/* ======================================== */
+#works{
+    width: 90%;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: var(--background2);
+}
+#onework{
+    width: 17%;
+    float:left;
+    background-color: var(--background4);
+    padding: 1%;
+    margin:0.5%;
+	display: inline-block;
+}
+#imginworks1{
+    height: 20rem;
+    object-fit: cover;
+}
+#imginworks2{
+    height: 20rem;
+    object-fit: cover;
+}
+#imginworks3{
+    height: 20rem;
+    object-fit: cover;
+}
+#username{
+    line-height: 2.5rem;
+    color: var(--text2);
+}
+#date{
+    text-align: right;
+    margin-top: -1.5rem;
+    color: var(--text2);
+}
+#title{
+    width: 5rem;
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+    white-space: nowrap;
+    color: var(--text1);
+}
+#description{
+    line-height: 1.5rem;
+    color: var(--text1);
+}
+
+
+footer{
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  background-color: var(--background2);
+
+  color: var(--text1);
+  font-size: 1.75rem;
+  font-weight: 300;
+  letter-spacing: 1.5px;
+
+  line-height: 9rem;
+  text-align: center;
+  text-decoration: none;
+}
