@@ -1,0 +1,220 @@
+@charset "utf-8";
+
+:root{
+  --headerHeight: 9rem;
+}
+
+/* ======================================== */
+
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+  display: block;
+  width: 100%;
+  height: var(--headerHeight);
+
+  margin: 0;
+  padding: 0;
+
+  background-color: var(--background2);
+}
+
+header>nav{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  width: 50%;
+  height: calc(var(--headerHeight) - 5rem);
+
+  margin: 2.5rem auto;
+  padding: 0;
+}
+
+nav>a.navLink{
+  display: block;
+  width: calc(100% - 1px);
+  height: 100%;
+
+  border-left: var(--text3) solid 0.5px;
+  border-right: var(--text3) solid 0.5px;
+  
+  color: var(--text1);
+  font-size: 1.75rem;
+  font-weight: 400;
+
+  line-height: calc(var(--headerHeight) - 5rem);
+  text-align: center;
+  text-decoration: none;
+}
+
+nav>a.navLink:nth-of-type(1){
+  border-left: none;
+}
+
+nav>a.navLink:nth-of-type(4){
+  border-right: none;
+}
+
+/* ======================================== */
+
+span#topSpan{
+  display: block;
+  width: 100%;
+  height: var(--headerHeight);
+
+  visibility: hidden;
+}
+
+/* ======================================== */
+
+#viewer{
+  display: block;
+  width: 100%;
+  height: calc(100dvh - var(--headerHeight));
+
+  background-color: aliceblue;
+
+  overflow: hidden;
+}
+
+#viewer>canvas{
+  display: block;
+  width: 100%;
+  height: calc(100dvh - var(--headerHeight));
+
+  background-color: aliceblue;
+
+  overflow: hidden;
+}
+
+/* ======================================== */
+
+#angleMeterHorizontal{
+  position: fixed;
+  bottom: 5rem;
+  left: calc((100% - 60rem) / 2);
+
+  display: block;
+  width: 60rem;
+  height: 10rem;
+
+  margin: 0;
+  padding: 0;
+
+  background-color: #ffffff88;
+
+  overflow-x: hidden;
+}
+
+#angleMeterHorizontal>div{
+  display: block;
+  width: auto;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  transform: translateX(0);
+}
+
+#angleMeterHorizontal>div>span{
+  display: block;
+  width: auto;
+  height: 5rem;
+}
+
+#angleMeterHorizontal>div>div{
+  display: block;
+  width: calc(15rem * 360 / 15 * 2);
+  height: 5rem;
+
+  margin: 0;
+  padding: 0;
+
+  transform: translateX(-50%);
+}
+
+#angleMeterHorizontal>div>div>p{
+  display: inline-block;
+  width: 15rem;
+  height: 5rem;
+
+  margin: 0;
+  padding: 0;
+  
+  color: var(--background1);
+  font-size: 1.5rem;
+  font-weight: 400;
+
+  line-height: 5rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* ======================================== */
+
+#angleMeterVertical{
+  position: fixed;
+  right: 5rem;
+  bottom: calc((100% - 60rem) / 2);
+
+  display: block;
+  height: 60rem;
+  width: 10rem;
+
+  margin: 0;
+  padding: 0;
+
+  background-color: #ffffff88;
+
+  overflow-y: hidden;
+}
+
+#angleMeterVertical>div{
+  display: block;
+  width: 100%;
+  height: auto;
+
+  margin: 0;
+  padding: 0;
+
+  transform: translateY(0);
+}
+
+#angleMeterVertical>div>span{
+  display: block;
+  width: 5rem;
+  height: auto;
+}
+
+#angleMeterVertical>div>div{
+  display: flex;
+  flex-direction: column-reverse;
+  width: 5rem;
+  height: calc(15rem * 360 / 15 * 2);
+
+  margin: 0;
+  padding: 0;
+
+  transform: translateY(-50%);
+}
+
+#angleMeterVertical>div>div>p{
+  display: inline-block;
+  width: 5rem;
+  height: 15rem;
+
+  margin: 0;
+  padding: 0;
+  
+  color: var(--background1);
+  font-size: 1.5rem;
+  font-weight: 400;
+
+  line-height: 15rem;
+  text-align: center;
+  text-decoration: none;
+}
