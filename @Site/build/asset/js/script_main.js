@@ -41,12 +41,21 @@ function parseCSV(csvText) {
 
 function dataLoad() {
   Promise.all([
-    fetchCSV(dataCSV)
-  ]).then(([csvText]) => {
+    fetchCSV(dataCSV[0]),
+    fetchCSV(dataCSV[1]),
+    fetchCSV(dataCSV[2]),
+    fetchCSV(dataCSV[3]),
+    fetchCSV(dataCSV[4])
+  ]).then(([csvText1, csvText2, csvText3, csvText4, csvText5]) => {
 
     // CSVを二次元配列化して格納
-    stars = parseCSV(csvText);
+    stars = parseCSV(csvText1);
+    stars.pop(-1);
+    stars.concat(parseCSV(csvText2));
     console.log(stars);
+    // stars.push(parseCSV(csvText3));
+    // stars.push(parseCSV(csvText4));
+    // stars.push(parseCSV(csvText5));
 
     universeInit();
 
@@ -70,7 +79,7 @@ $(document).ready(function(){
 function universeInit(){
 
   // DOM要素を取得
-  const canvasElement = document.querySelector('#mapCanvas');
+  const canvasElement = document.querySelector('#universeCanvas');
 
   // ========================================
 
@@ -85,18 +94,21 @@ function universeInit(){
 
   // ========================================
 
+  // // CSSレンダラーを作成
   // const cssrenderer = new CSS3DRenderer();
 	// cssrenderer.setSize(width, height);
   // cssrenderer.antialias = true;
 	// cssrenderer.domElement.style.position = 'absolute';
 	// cssrenderer.domElement.style.top = 0;
+	// cssrenderer.domElement.style.left = 0;
   // cssrenderer.domElement.setAttribute("id", "cssCanvas");
-	// document.getElementById("sectionMap").prepend(cssrenderer.domElement);
+	// document.getElementById("viewer").prepend(cssrenderer.domElement);
 
   // ========================================
 
   // シーンを作成
   scene = new THREE.Scene();
+  // scene2 = new THREE.Scene();
 
   // ========================================
   
@@ -108,42 +120,31 @@ function universeInit(){
   // ========================================
 
   // カメラを作成
-  // PerspectiveCamera(画角, アスペクト比＝縦横比, 描画開始距離, 描画終了距離);
-  // TIPS: 描画開始距離を小さくしすぎると3Dワールドじたいの描画が不安定になりやすい
-  camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
-  
-  // カメラコントローラーを作成
-  controls = new THREE.OrbitControls(camera, canvasElement);
-  
-  // 各種カメラ設定（詳細はscript_2dmap_const.jsを参照）
-  controls.enableRotate = controlEnRotate;
-  controls.enablePan = controlEnPan;
-  controls.rotateSpeed = controlSpRotate;
-  controls.zoomSpeed = controlSpZoom;
-  controls.panSpeed = controlSpPan;
-  controls.minPolarAngle = controlMinAngle;
-  controls.maxPolarAngle = controlMaxAngle;
-  controls.minDistance = minZoom;
-  controls.maxDistance = maxZoom;
-  controls.enableDamping = controlEnDamping;
-  controls.dampingFactor = controlDampingFactor;
-  
-  // カメラの初期位置を設定
-  camera.position.set(posInit[0], posInit[1], posInit[2]);
-  controls.target.set(rotInit[0], rotInit[1], rotInit[2]);
-
-  // ========================================
-  
-  // 平面を作成・マテリアルにテクスチャーを設定
-  const sphereGeometry = new THREE.SphereGeometry(sphereRadius, sphereSegment, sphereSegment);
-  const sphereMaterial = new THREE.MeshBasicMaterial({
-    map: new THREE.TextureLoader().load(backgroundImgURL),
-    side: THREE.DoubleSide
-  });
-  sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-  sphere.position.set(0, 0, 0);
-  sphere.rotation.set(0, 0, 0);
-  scene.add(sphere);
+  {
+    // PerspectiveCamera(画角, アスペクト比＝縦横比, 描画開始距離, 描画終了距離);
+    // TIPS: 描画開始距離を小さくしすぎると3Dワールドじたいの描画が不安定になりやすい
+    camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
+    
+    // カメラコントローラーを作成
+    controls = new THREE.OrbitControls(camera, canvasElement);
+    
+    // 各種カメラ設定（詳細はscript_2dmap_const.jsを参照）
+    controls.enableRotate = controlEnRotate;
+    controls.enablePan = controlEnPan;
+    controls.rotateSpeed = controlSpRotate;
+    controls.zoomSpeed = controlSpZoom;
+    controls.panSpeed = controlSpPan;
+    controls.minPolarAngle = controlMinAngle;
+    controls.maxPolarAngle = controlMaxAngle;
+    controls.minDistance = minZoom;
+    controls.maxDistance = maxZoom;
+    controls.enableDamping = controlEnDamping;
+    controls.dampingFactor = controlDampingFactor;
+    
+    // カメラの初期位置を設定
+    camera.position.set(posInit[0], posInit[1], posInit[2]);
+    controls.target.set(rotInit[0], rotInit[1], rotInit[2]);
+  }
 
   // ========================================
 
@@ -155,20 +156,91 @@ function universeInit(){
   
   // ========================================
   
+  // 天球表示用の球面を作成
+  const sphereGeometry = new THREE.SphereGeometry(sphereRadius, sphereSegment, sphereSegment);
+  const sphereMaterial = new THREE.MeshBasicMaterial({
+    map: new THREE.TextureLoader().load(backgroundImgURL),
+    side: THREE.DoubleSide
+  });
+  sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+  sphere.position.set(0, 0, 0);
+  sphere.rotation.set(0, 0, 0);
+  sphere.name = "天球"
+  scene.add(sphere);
+
+  // ========================================
+  
+  // 天球上の星々を作成
+  for(var i=0; i<stars.length-1; i++){
+    const starGeometry = new THREE.SphereGeometry((starRadius)**4/(stars[i+1][7])**4, 32, 32);
+    const starMaterial = new THREE.MeshBasicMaterial({
+      // map: new THREE.TextureLoader().load("URL"),
+      color: "#ffffcc",
+      side: THREE.DoubleSide
+    });
+    console.log("created");
+    starObj.push(new THREE.Mesh(starGeometry, starMaterial));
+    starObj[i].position.set(100*Math.sin(stars[i+1][1])*Math.cos(stars[i+1][3]), 100*Math.sin(stars[i+1][1])*Math.sin(stars[i+1][3]), 100*Math.cos(stars[i+1][1]));
+    starObj[i].rotation.set(0, 0, 0);
+    scene.add(starObj[i]);
+  }
+
+  // ========================================
+  
   // // マップコンテンツ選択用ボタンのコンテナをCSS3DObjectから追加（DOM要素を3Dワールドに追加）
-  // cssobj = document.getElementById("mapContentBtnContainer");
-  // css3Dobj = new CSS3DObject(cssobj);
+  // var cssobj = document.getElementById("mapContentBtnContainer");
+  // var css3Dobj = new CSS3DObject(cssobj);
   // scene2.add(css3Dobj);
-  // css3Dobj.rotation.set(-90 / 180 * Math.PI, 0, 0);
+  // css3Dobj.rotation.set(0, 0, 0);
   // css3Dobj.position.set(0, 0, 0);
   // css3Dobj.updateMatrixWorld();
-  // cssobj.style.opacity = '1';
+
+  // ========================================
+
+  // raycasterを使用してマウスカーソルとの交差オブジェクトを取得
+  // canvas 要素の参照を取得する
+  const canvas = document.querySelector('#universeCanvas');
+  // マウス座標管理用のベクトルを作成
+  const mouse = new THREE.Vector2();
+  // マウスイベントを登録
+  canvas.addEventListener('mousemove', handleMouseMove);
+
+  // マウスを動かしたときのイベント
+  function handleMouseMove(event) {
+    const element = event.currentTarget;
+    // canvas要素上のXY座標
+    const x = event.clientX - element.offsetLeft;
+    const y = event.clientY - element.offsetTop;
+    // canvas要素の幅・高さ
+    const w = element.offsetWidth;
+    const h = element.offsetHeight;
+
+    // -1〜+1の範囲で現在のマウス座標を登録する
+    mouse.x = ( x / w ) * 2 - 1;
+    mouse.y = -( y / h ) * 2 + 1;
+  }
+  
+  // レイキャストを作成
+  const raycaster = new THREE.Raycaster();
   
   // ========================================
   
   var count = 0;
   // 毎フレーム時に実行されるループイベント
   const tick = () => {
+
+
+    // レイキャスト = マウス位置からまっすぐに伸びる光線ベクトルを生成
+    raycaster.setFromCamera(mouse, camera);
+
+    // その光線とぶつかったオブジェクトを得る
+    const intersects = raycaster.intersectObjects(scene.children);
+
+    if(intersects.length > 0){
+      if(intersects[0].object.name != "天球"){
+        console.log(intersects[0].object);
+      }
+    }
 
     count = (count+1)%(60/fps);
     
@@ -221,12 +293,3 @@ function universeInit(){
 
 
 // ========================================
-
-
-
-
-
-
-
-
-
