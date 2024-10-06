@@ -317,14 +317,3 @@ function universeInit(){
 
 
 
-
-import { captureElementScreenshot } from 'video-canvas-screenshot'
-
-const canvasElement = document.getElementById("universeCanvas") as HTMLCanvasElement;
-$("#capture").click(function(){
-  if (canvasElement) {
-    captureElementScreenshot(canvasElement, (imageData) => {
-      setBase64Image(imageData);
-    });
-  }
-});
