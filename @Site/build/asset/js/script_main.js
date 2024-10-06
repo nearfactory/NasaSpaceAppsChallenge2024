@@ -1,5 +1,3 @@
-// import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
-
 // ========================================
 
 
@@ -84,7 +82,7 @@ function universeInit(){
   // ========================================
 
   // レンダラーを作成
-  const renderer = new THREE.WebGLRenderer({
+  renderer = new THREE.WebGLRenderer({
       canvas: canvasElement,
       antialias: true,
   });
@@ -180,8 +178,9 @@ function universeInit(){
     });
     console.log("created");
     starObj.push(new THREE.Mesh(starGeometry, starMaterial));
-    starObj[i].position.set(100*Math.sin(stars[i+1][1])*Math.cos(stars[i+1][3]), 100*Math.sin(stars[i+1][1])*Math.sin(stars[i+1][3]), 100*Math.cos(stars[i+1][1]));
+    starObj[i].position.set((sphereRadius-2)*Math.sin(stars[i+1][1])*Math.cos(stars[i+1][3]), 100*Math.sin(stars[i+1][1])*Math.sin(stars[i+1][3]), 100*Math.cos(stars[i+1][1]));
     starObj[i].rotation.set(0, 0, 0);
+    starObj[i].name = "星" + stars[i+1][0];
     scene.add(starObj[i]);
   }
 
@@ -197,50 +196,67 @@ function universeInit(){
 
   // ========================================
 
-  // raycasterを使用してマウスカーソルとの交差オブジェクトを取得
-  // canvas 要素の参照を取得する
-  const canvas = document.querySelector('#universeCanvas');
-  // マウス座標管理用のベクトルを作成
-  const mouse = new THREE.Vector2();
-  // マウスイベントを登録
-  canvas.addEventListener('mousemove', handleMouseMove);
+  // raycasterでタップ場所からまっすぐ伸びる光線を作成
+  // 光線上のオブジェクトを取得してクリック判定を行う
+  let raycaster, mouse;
 
-  // マウスを動かしたときのイベント
-  function handleMouseMove(event) {
+  // 操作用マウス/指ベクトルの作成
+  mouse = new THREE.Vector2();
+  // レイキャスターの初期化
+  raycaster = new THREE.Raycaster();
+
+
+  // クリックイベントの作成
+  document.getElementById("universeCanvas").addEventListener('click', onMouseEvent);
+
+  // クリック時に動く関数
+  function onMouseEvent(event) {
     const element = event.currentTarget;
-    // canvas要素上のXY座標
     const x = event.clientX - element.offsetLeft;
     const y = event.clientY - element.offsetTop;
-    // canvas要素の幅・高さ
     const w = element.offsetWidth;
     const h = element.offsetHeight;
 
-    // -1〜+1の範囲で現在のマウス座標を登録する
+    // 座標を正規化する呪文
     mouse.x = ( x / w ) * 2 - 1;
     mouse.y = -( y / h ) * 2 + 1;
+
+    // レイキャスティングでマウスと重なるオブジェクトを取得
+    raycaster.setFromCamera(mouse, camera);
+    var intersects = raycaster.intersectObjects(scene.children);
+
+    // 星をクリックした
+    if(intersects.length > 0 && intersects[0].object.name[0] == "星"){
+      // 線の引きはじめ
+      if(!lineFlag){
+        startCoordinate = [intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z];
+        console.log(startCoordinate)
+      }
+      // 線の引き終わり
+      if(lineFlag){
+        endCoordinate = [intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z];
+        const points = [];
+        points.push(new THREE.Vector3(startCoordinate[0], startCoordinate[1], startCoordinate[2]));
+        points.push(new THREE.Vector3((startCoordinate[0]+endCoordinate[0])/2, (startCoordinate[1]+endCoordinate[1])/2, (startCoordinate[2]+endCoordinate[2])/2));
+        points.push(new THREE.Vector3(endCoordinate[0], endCoordinate[1], endCoordinate[2]));
+
+        const geometry = new THREE.BufferGeometry().setFromPoints( points );
+        const line = new THREE.Line( geometry, new THREE.MeshBasicMaterial({
+          color: "#ffffcc",
+          side: THREE.DoubleSide
+        }));
+        scene.add( line );
+      }
+      lineFlag = !lineFlag;
+    }
   }
-  
-  // レイキャストを作成
-  const raycaster = new THREE.Raycaster();
   
   // ========================================
   
   var count = 0;
   // 毎フレーム時に実行されるループイベント
   const tick = () => {
-
-
-    // レイキャスト = マウス位置からまっすぐに伸びる光線ベクトルを生成
-    raycaster.setFromCamera(mouse, camera);
-
-    // その光線とぶつかったオブジェクトを得る
-    const intersects = raycaster.intersectObjects(scene.children);
-
-    if(intersects.length > 0){
-      if(intersects[0].object.name != "天球"){
-        console.log(intersects[0].object);
-      }
-    }
+    // ========================================
 
     count = (count+1)%(60/fps);
     
@@ -293,3 +309,11 @@ function universeInit(){
 
 
 // ========================================
+
+
+
+
+
+
+
+

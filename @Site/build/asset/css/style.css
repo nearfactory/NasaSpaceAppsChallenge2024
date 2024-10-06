@@ -70,7 +70,7 @@ span#topSpan{
 
 /* ======================================== */
 
-#sectionMap{
+#viewer{
   display: block;
   width: 100%;
   height: calc(100dvh - var(--headerHeight));
@@ -80,7 +80,7 @@ span#topSpan{
   overflow: hidden;
 }
 
-#sectionMap>canvas{
+#viewer>canvas{
   display: block;
   width: 100%;
   height: calc(100dvh - var(--headerHeight));
